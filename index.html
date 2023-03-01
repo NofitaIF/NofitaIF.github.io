@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Nofita Indah Fitriani Portofolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>NOFITA INDAH FITRIANI<br /></h1>
+						<p>I have an experience using Microsoft Office(Word, Excel, PowerPoint), PostgreSQL, and Power BI</p>
+						<ul class="actions">
+							<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a class="logo">Portofolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/nofita-indah-fitriani-6a7061243" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://github.com/NofitaIF" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<article>
+									<header class="major">
+										<h2>PROJECT<br /></h2>
+									</header>
+									<header>	
+										<h2><br>NATIONAL HIGHWAY TRAFFIC SAFETY ADMINISTRATION (NHTSA)<br /></h2>
+									</header>
+									<a href="https://www.pond5.com/stock-footage/item/89924727-long-holiday-weekend-highway-traffic-leaving-city-cottage-co?ref=getmedia" class="image fit" target="_blank"><img src="./images/527cede203b9e3b9e13930153ed6113b.jpg" alt="https://www.pond5.com/stock-footage/item/89924727-long-holiday-weekend-highway-traffic-leaving-city-cottage-co?ref=getmedia" /></a>
+									<p>Each year thousands of people are killed or injured in car accidents in the United States and the NHTSA is looking for effective ways to reduce road accidents in the next year. 
+										NHTSA is one of the United States government departments that focus on reducing road accidents.
+										Me and four members of my team got the opportunity to assist the NHTSA in analyzing data that had been collected in 2021.<br></p>
+									<p>My job is to look out for top 10 states where the most accidents happen and accidents by day. I used PostgreSQL for data mining and Google Spreadsheets for visualization.
+									</p>
+									<h3><p>Queries and Tables</p></h3>
+									<div class="container">
+										<div class="code-wrap">
+											<pre>
+												<code id="code">
+<b>--Top 10 states where the most accidents happen </b>
+SELECT state_name, COUNT(state_name) total 
+FROM crash
+GROUP BY state_name
+ORDER BY total desc
+LIMIT(10)<br>
+<b>--Accidents by day</b> 
+SELECT TO_CHAR(local_time, 'Day') day, COUNT (consecutive_number) accidents_total
+FROM crash
+GROUP BY TO_CHAR(local_time, 'Day')
+ORDER BY COUNT(consecutive_number) DESC
+
+												</code>
+											</pre>
+										</div>
+									</div>
+									<p>This is the data i got
+									<center><img src="./images/Opera Snapshot_2023-03-01_084814_docs.google.com.png" alt="Top 10 States table" width="35%" height="35%"> 
+										<img src="./images/Opera Snapshot_2023-03-01_090921_docs.google.com.png" alt="Total Accidents by day table" width="35%" height="35%"></center><br>
+										<h3><p>Visualization</p></h3>
+										<center><img src="./images/accidents vs. state_name (1).png" alt="Visualization of Top 10 States table" width="70%" height="70%"> 
+											<img src="./images/Total Accidents by Day.png" alt="Visualization of Total Accidents by day table" width="70%" height="70%"></center><br>
+
+										At the end of the project we made a reports and presented the results that had been obtained and gave some recommendations for reduce the accident rate.
+										We completed the project on time with a passing grade and got a <u><a href="https://drive.google.com/file/d/1ImaCM2DX7DQ7g1u6KFK1Krqu60xwJsmY/uc?usp=share_link" target="_blank">certificate.</a></u>
+									</p>
+								</article>
+								<article>
+									<header>
+										<h2>The Look E-commerce</h2>
+									</header>
+									<a href="https://www.pexels.com/id-id/foto/orang-orang-wanita-laptop-6214474/" class="image fit" target="_blank"><img src="./images/pexels-nataliya-vaitkevich-6214474.jpg" alt="https://www.pond5.com/stock-footage/item/89924727-long-holiday-weekend-highway-traffic-leaving-city-cottage-co?ref=getmedia" /></a>
+									<p>In this modern age, shopping has become an easy thing to do anywhere at any time. Using online shopping services that you can access by using various types of gadgets while connected with the internet makes it easy to do.
+										The easier it is to shop, the more online stores are popping up and there are many online stores that fail to find the correct solution to the problems.
+										<br><br>
+										Me as a junior data analyst at the look E-commerce was asked to help companies to understand business growth in Asian Countries(Japan, China, South Korea) over the last 12 month(2021/09/01 - 2022/09/30). I used PostgreSQL for data mining and Google Spreadsheet for visualization.
+									</p>
+									<h3><p>Queries and Tables</p></h3>
+									<div class="container">
+										<div class="code-wrap">
+											<pre>
+												<code id="code">
+<b>--Percentage of sales for one year (20210901 - 20220930)</b>
+SELECT  u.country, DATE_PART('year', oi.created_at) year, DATE_PART('month',oi.created_at) month, 
+	CAST((100*(SUM(sale_price) - LAG(SUM(sale_price),1) OVER(PARTITION BY u.country ORDER BY DATE_PART('month',oi.created_at) ASC))) 
+	/
+	LAG(SUM(sale_price),1) OVER(PARTITION BY u.country ORDER BY DATE_PART('month',oi.created_at) ASC) AS FLOAT) AS sales_percentage
+FROM users u
+  JOIN order_items oi 
+  ON u.id = oi.user_id
+WHERE u.country in('Japan','South Korea','China'), AND oi.created_at BETWEEN (20210901) AND ('20220930') AND oi.status = 'Complete'
+GROUP BY u.country, DATE_PART('year', oi.created_at), DATE_PART('month',oi.created_at)
+ORDER BY DATE_PART('year', oi.created_at) ASC, DATE_PART('month',oi.created_at) ASC
+												</code>
+											</pre>
+										</div>
+									</div>
+									<center><img src="./images/Opera Snapshot_2023-03-01_135646_docs.google.com.png" alt="Sales Percentage Table" width="70%" height="70%"></center>
+									<p>I turned it into pivot table so it looks more neat than the data that i got just from SQL</p>
+									<div class="container">
+										<div class="code-wrap">
+											<pre>
+												<code id="code">
+<b>--Total order status 'Complete' AND 'Returned' in one year (20210901 - 20220930)</b>
+SELECT DISTINCT u.country, COUNT(oi.created_at) total_order
+FROM users u
+JOIN order_items oi
+   ON u.id = oi.user_id
+WHERE oi.created_at BETWEEN ('20210901') AND ('20220930') AND u.country IN ('Japan', 'South Korea', 'China') AND oi.status NOT IN ('Shipped', 'Processing','Cancelled')
+GROUP BY u.country
+													
+<b>--Number of items returned in one year (20210901 - 20220930)</b>
+SELECT DISTINCT u.country,oi.status ,count(oi.status) total
+FROM users u
+JOIN order_items oi
+   ON u.id = oi.user_id
+WHERE oi.created_at BETWEEN('20210901') AND ('20220930') AND u.country IN ('Japan', 'South Korea', 'China') AND oi.status  IN ('Returned')
+GROUP BY u.country, oi.status
+													</code>
+												</pre>
+											</div>
+										</div><p>I combined two data i got from queries above and looked for each country percentage returned items.</p>
+									<center><img src="./images/Opera Snapshot_2023-03-01_135800_docs.google.com.png" alt="Returned Items Percentage" width="70%" height="70%"></center>
+
+									<div class="container">
+										<div class="code-wrap">
+											<pre>
+												<code id="code">
+<b>--Average delivery time over the last 3 months (20220701 - 20220930)</b>
+SELECT u.country, DATE_PART('year', oi.created_at) year, DATE_PART('month',oi.created_at) month,
+	CAST((100*(SUM(sale_price)-LAG(SUM(sale_price),1) OVER(PARTITION BY u.country ORDER BY DATE_PART('month',oi.created_at)ASC)))
+	/
+	LAG(SUM(sale_price),1) OVER(partition by u.country order by DATE_PART('month',oi.created_at)ASC)AS FLOAT) AS persentase_penjualan
+FROM users u
+JOIN order_items oi
+   ON u.id = oi.user_id
+WHERE u.country IN('Japan', 'South Korea', 'China') AND oi.created_at BETWEEN('20220701') AND ('20220930') AND oi.status = 'Complete' 
+GROUP BY u.country,DATE_PART('year',oi.created_at), DATE_PART('month',oi.created_at)
+ORDER BY DATE_PART('year',oi.created_at) ASC, DATE_PART('month',oi.created_at) ASC, u.country ASC
+												</code>
+											</pre>
+										</div>
+									</div>
+									<p>This is the average delivery time of each country over the last 3 months</p>
+										
+									<center><img src="./images/Opera Snapshot_2023-03-01_135851_docs.google.com.png" alt="Average delivery time tables" width="70%" height="70%"></center>
+									<br>
+										<h3><p>Visualization</p></h3>
+									<center><img src="./images/chart.png" alt="Sales Growth" width="90%" height="90%"></center>
+									
+									<p>Of all the data i got, Japan is the most stable growth in sales and has the least percentage of return items than China and South Korea. In the end i can gave the Look E-commerce some recommenations on what company have to do the next 3 months based on that data.</p>
+								</article>
+							</section>
+
+						<!-- Footer -->
+							<footer>
+								<div class="pagination">
+								</div>
+							</footer>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>Jakarta Utara, Indonesia<br /></p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(+62) 857-8206-5231</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">nofita.i.fitriani@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="https://www.linkedin.com/in/nofita-indah-fitriani-6a7061243" class="icon brands alt fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+									<li><a href="https://github.com/NofitaIF" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
